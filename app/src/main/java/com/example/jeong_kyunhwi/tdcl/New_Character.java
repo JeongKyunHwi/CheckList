@@ -7,24 +7,32 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 public class New_Character extends AppCompatActivity {
 
+    final String[] popup_class_list = {"워로드", "디스트로이어", "버서커", "홀리나이트", "인파이터", "배틀마스터", "기공사", "창술사", "스트라이커",
+            "데빌헌터", "블래스터", "호크아이", "스카우터", "건슬링어", "서머너", "바드", "아르카나", "블레이드", "데모닉", "리퍼"};
+
+    String class_name = "";
+
+    ImageView select_class;
+    EditText character_name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new__character);
 
-        ImageView select_class = (ImageView) findViewById(R.id.Character_class);
+        select_class = (ImageView) findViewById(R.id.Character_class);
+        character_name = (EditText)findViewById(R.id.Character_name);
 
         select_class.setOnClickListener(new Select_class());
     }
 
-    final String[] popup_class_list = {"워로드", "디스트로이어", "버서커", "홀리나이트", "인파이터", "배틀마스터", "기공사", "창술사", "스트라이커",
-            "데빌헌터", "블래스터", "호크아이", "스카우터", "건슬링어", "서머너", "바드", "아르카나", "블레이드", "데모닉", "리"};
 
     class Select_class implements View.OnClickListener {
         ImageView select_class = (ImageView) findViewById(R.id.Character_class);
@@ -43,6 +51,7 @@ public class New_Character extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), popup_class_list[which], Toast.LENGTH_LONG).show();
                             //온클릭시 이미지 변경으로 수정
                             select_class.setImageResource(R.drawable.ic_launcher_background);
+                            class_name = popup_class_list[which];
                         }
                     })
                     .setCancelable(true)
@@ -52,6 +61,9 @@ public class New_Character extends AppCompatActivity {
 
     public void create_button(View view) {
         Intent intent = new Intent(New_Character.this, MainActivity.class);
+        intent.putExtra("name", character_name.getText().toString());
+        intent.putExtra("class_name",class_name);
+        //db 이용을 생각해보자.
         startActivity(intent);
     }
 
