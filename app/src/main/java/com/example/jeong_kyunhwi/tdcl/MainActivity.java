@@ -26,8 +26,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //db를 읽어서 리스트뷰 리스트업.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        List_DB.CharacterDbHelper dbHelper = new List_DB.CharacterDbHelper(getApplicationContext());
 
         this.InitializeCharacterData();
         ListView Character_List = (ListView)findViewById(R.id.Character_List);
@@ -47,11 +50,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void InitializeCharacterData(){
         characterDataList = new ArrayList<CharacterData>();
-        Bundle extras = getIntent().getExtras();
-        String class_name = extras.getString("class_name");
-        String name = extras.getString("name");
-        characterDataList.add(new CharacterData(R.drawable.ic_launcher_foreground, class_name,name));
-
+        //Bundle extras = getIntent().getExtras();
+        //String class_name = extras.getString("class_name");
+        //String name = extras.getString("name");
+        characterDataList.add(new CharacterData(R.drawable.ic_launcher_foreground, "over","1340"));
+        //characterDataList.add(new CharacterData(R.drawable.ic_launcher_foreground, "cc","1370"));
 
 
     }
@@ -115,9 +118,9 @@ public class MainActivity extends AppCompatActivity {
             TextView nickname = (TextView)findViewById(R.id.nickname);
             TextView character_level = (TextView)findViewById(R.id.character_level);
 
-            class_img.setImageResource(C_data.get(position).getClass_img());
-            nickname.setText(C_data.get(position).getCharacter_nickname());
-            character_level.setText(C_data.get(position).getCharacter_level());
+//            class_img.setImageResource(C_data.get(position).getClass_img());
+//            nickname.setText(C_data.get(position).getCharacter_nickname());
+ //           character_level.setText(C_data.get(position).getCharacter_level());
 
             return view;
         }

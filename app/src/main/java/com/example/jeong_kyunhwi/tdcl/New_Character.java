@@ -1,8 +1,10 @@
 package com.example.jeong_kyunhwi.tdcl;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +23,10 @@ public class New_Character extends AppCompatActivity {
 
     ImageView select_class;
     EditText character_name;
+    EditText item_level;
+
+    List_DB.CharacterDbHelper dbHelper = new List_DB.CharacterDbHelper(getApplicationContext());
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +35,7 @@ public class New_Character extends AppCompatActivity {
 
         select_class = (ImageView) findViewById(R.id.Character_class);
         character_name = (EditText)findViewById(R.id.Character_name);
+        item_level = (EditText)findViewById(R.id.item_level);
 
         select_class.setOnClickListener(new Select_class());
     }
@@ -61,9 +68,16 @@ public class New_Character extends AppCompatActivity {
 
     public void create_button(View view) {
         Intent intent = new Intent(New_Character.this, MainActivity.class);
-        intent.putExtra("name", character_name.getText().toString());
-        intent.putExtra("class_name",class_name);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(List_DB.CharacterEntry.COLUMN_NAME_TITLE, character_name.getText().toString());
+        values.put(List_DB.CharacterEntry.COLUMN_NAME_FIRST_SUBTITLE, class_name);
+        values.put(List_DB.CharacterEntry.COLUMN_NAME_SECOND_SUBTITLE, item_level.getText().toString());
+
+        long newRowId = db.insert(List_DB.CharacterEntry.TABLE_NAME,null, values);
+
         //db 이용을 생각해보자.
+        //db를 업데이트하고 인텐트
         startActivity(intent);
     }
 

@@ -21,8 +21,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@+id/Character_class"
-        android:text="캐릭터 이름"
+        android:hint="캐릭터 이름을 입력하세요."
         />
+    <TextView
+        android:id="@+id/level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="아이템 레벨"
+        app:layout_constraintLeft_toRightOf="@+id/Character_class"
+        app:layout_constraintTop_toBottomOf="@+id/Character_name"/>
+    <EditText
+        android:id="@+id/item_level"
+        android:inputType="number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="레벨을 입력하세요."
+        app:layout_constraintLeft_toRightOf="@+id/Character_class"
+        app:layout_constraintTop_toBottomOf="@+id/level"/>
     <android.support.v7.widget.AppCompatButton
         android:text="생성"
         android:id="@+id/create_button"
